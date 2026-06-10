@@ -1,38 +1,474 @@
-.App {
-  text-align: center;
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', 'Segoe UI', Tahoma, sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: #0b0d10; /* Mengubah hitam biasa ke warna midnight blue yang sangat pekat */
+  color: #ffffff;
+  font-family: 'Montserrat', 'Segoe UI', Tahoma, sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
+
+  /* --- 1. EFEK TECH GRID (Garis Kotak Tipis) --- */
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 50px 50px; /* Ukuran kotak-kotak grid */
+  background-attachment: fixed; /* Grid tetap diam saat halaman di-scroll */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* --- 2. EFEK AMBIENT GLOW (Bola Cahaya Samar di Background) --- */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  pointer-events: none; /* Agar tidak mengganggu klik pada tombol/teks */
+  z-index: -1; /* Berada di paling belakang */
+  filter: blur(140px); /* Membuat lingkaran menjadi cahaya samar/halus */
+  opacity: 0.12; /* Sangat tipis agar teks tetap kontras dan terbaca */
 }
 
-.App-header {
-  background-color: #282c34;
+/* Cahaya Biru React di area kanan atas halaman */
+body::before {
+  top: -10%;
+  right: -5%;
+  background: #61dafb;
+}
+
+/* Cahaya Ungu Estetik di area kiri bawah halaman */
+body::after {
+  bottom: 10%;
+  left: -10%;
+  background: #7928ca; 
+}
+
+.app-container {
+  width: 100%;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 30px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(18,18,18,0.9), transparent);
+  z-index: 100;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #888;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  transition: color 0.3s;
+}
+
+.nav-links a.active, .nav-links a:hover {
+  color: #61dafb; /* Aksen warna biru muda (bisa diganti putih) */
+}
+
+.nav-contact {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* Global Section Styles */
+.section {
   min-height: 100vh;
+  padding: 100px 50px 50px 50px;
+  display: flex;
+  border-bottom: 1px solid #222; /* Pemisah antar section */
+}
+
+/* Home Section */
+.home-section {
+  display: flex;
+  flex-direction: row; /* Bersebelahan secara horizontal */
+  justify-content: center;
+  align-items: center;
+  gap: 500px; /* Jarak antara teks dan gambar */
+  background: radial-gradient(circle at center, rgba(42, 42, 42, 0.3) 0%, transparent 80%);
+
+}
+
+.home-image img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover; /* Agar gambar tidak gepeng */
+  border-radius: 50%; /* Membuat gambar menjadi lingkaran */
+  border: 5px solid #333;
+  box-shadow: 0 0 20px rgba(97, 218, 251, 0.2); /* Efek cahaya tipis */
+  transition: transform 0.3s ease;
+}
+
+.home-image img:hover {
+  transform: scale(1.05); /* Sedikit membesar saat disorot */
+}
+
+.home-content h1 {
+  font-size: 4rem;
+  line-height: 1;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.home-content h3 {
+  font-size: 1.2rem;
+  color: #aaa;
+  font-weight: 300;
+  letter-spacing: 5px;
+  margin-bottom: 30px;
+}
+
+.btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 10px 25px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-outline:hover {
+  background: #fff;
+  color: #000;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* About Section */
+.about-section {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.about-text {
+  width: 40%;
+}
+
+.about-text h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.email {
+  color: #61dafb;
+  margin-bottom: 30px;
+}
+
+.desc {
+  line-height: 1.8;
+  color: #ccc;
+  margin-bottom: 40px;
+}
+
+.address {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.about-image-placeholder {
+  width: 400px; /* Sesuai ukuran awal di modul[cite: 1] */
+  height: 500px; /* Sesuai ukuran awal di modul[cite: 1] */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box; /* Memastikan padding tidak merusak ukuran total kotak */
+  
+  /* Kombinasi utama Glassmorphism */
+  background: rgba(255, 255, 255, 0.03); /* Lapisan kaca putih transparan super tipis */
+  backdrop-filter: blur(12px); /* Efek blur objek di belakang kaca */
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12); /* Garis tepi semi-transparan sebagai kilauan kaca */
+  border-radius: 24px; /* Sudut melengkung modern */
+  
+  padding: 15px; /* PENTING: Jarak ini agar efek kaca di pinggiran foto terlihat jelas */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7); /* Bayangan lembut agar efek "melayang" makin terasa */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animasi pop-out halus saat dihover */
+}
+
+.about-image-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px; /* Sudut foto sedikit melengkung menyesuaikan bingkainya */
+  object-position: center top; /* Tetap fokus pada area wajah */
+}
+
+.about-image-placeholder:hover {
+  transform: translateY(-10px) scale(1.02); /* Bingkai kaca sedikit naik dan membesar */
+  border: 1px solid rgba(97, 218, 251, 0.4); /* Garis tepi kaca berubah sedikit kebiruan sesuai tema React */
+  box-shadow: 0 35px 60px -10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(97, 218, 251, 0.1);
+}
+
+/* Resume Section */
+.resume-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px; /* Sedikit dirapatkan agar pas dengan panel baru */
+  padding: 100px 50px 50px 50px;
+}
+
+.resume-col {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.resume-col:hover {
+  border-color: rgba(97, 218, 251, 0.2); /* Menyala tipis saat disorot */
+  transform: translateY(-5px);
+}
+
+.resume-col h3 {
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  margin-bottom: 25px;
+  color: #61dafb; /* Judul kolom diubah menjadi biru khas React */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+}
+
+.skill-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.skill-bar label {
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.bar {
+  flex: none; /* Override flex: 1 jika sebelumnya melebar paksa */
+  width: 100%;
+  height: 6px; /* Dibuat sedikit lebih tipis agar elegan */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar .fill {
+  height: 100%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #61dafb, #7928ca); /* Gradasi Cyan ke Ungu */
+  box-shadow: 0 0 10px rgba(97, 218, 251, 0.5); /* Efek berpijar */
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: pulseGlow 2s infinite alternate;
+}
+
+.middle-col {
+  position: relative;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 25px; /* Jarak teks dari garis */
+  margin-bottom: 25px;
+  border-left: 2px solid rgba(255, 255, 255, 0.1); /* Garis vertikal timeline */
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -6px; /* Menyelaraskan titik tepat di tengah garis */
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  background: #61dafb;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #61dafb;
+  transition: transform 0.3s ease;
+}
+
+.timeline-item h4 {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.timeline-item p {
+  font-size: 0.85rem;
+  color: #888;
+  margin: 0;
+}
+
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 8px rgba(97, 218, 251, 0.4); }
+  100% { box-shadow: 0 0 15px rgba(97, 218, 251, 0.8); }
+}
+
+.small-text {
+  font-size: 0.9rem;
+  color: #aaa;
+  line-height: 1.8;
+}
+
+/* --- SERVICES LAYOUT FOR RIGHT COLUMN --- */
+.services-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Jarak antar kartu layanan */
+}
+
+.service-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+/* Efek interaktif saat kartu kecil disorot */
+.service-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(97, 218, 251, 0.3);
+  transform: translateX(5px); /* Sedikit bergeser ke kanan untuk efek dinamis */
+}
+
+.service-icon {
+  font-size: 1.5rem;
+  background: rgba(97, 218, 251, 0.1); /* Background lingkaran transparan biru */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(97, 218, 251, 0.1);
+  flex-shrink: 0; /* Mencegah ikon menyusut jika teksnya panjang */
+}
+
+.service-info h4 {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin: 0 0 5px 0;
+  font-weight: 600;
+}
+
+.service-info p {
+  font-size: 0.8rem;
+  color: #aaa;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Portfolio Section */
+.portfolio-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
+.portfolio-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.portfolio-header h2 {
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.portfolio-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover; /* Gambar akan terpotong rapi menyesuaikan kotak */
+  border-radius: 10px; /* Sudut melengkung di dalam kartu */
+  margin-bottom: 15px; /* Jarak antara gambar dan judul portofolio */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Glassmorphism Card Effect */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 30px;
+  transition: transform 0.3s ease, background 0.3s ease;
+  cursor: pointer;
+}
+
+.glass-card:hover {
+  transform: translateY(-10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(97, 218, 251, 0.5); /* Aksesn biru muda React */
+}
+
+.glass-card h3 {
   color: #61dafb;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.glass-card p {
+  color: #ccc;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.badge-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tech-badge {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: #ccc;
 }
